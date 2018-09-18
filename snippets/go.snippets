@@ -53,6 +53,9 @@ snippet dfr
 			${0:${VISUAL}}
 		}
 	}()
+# return nil
+snippet rni
+	return nil
 # int
 snippet i
 	int
@@ -66,7 +69,7 @@ snippet in
 	interface{}
 # full interface snippet
 snippet inf
-	interface ${1:name} {
+	type ${1:name} interface {
 		${2:/* methods */}
 	}
 # if condition
@@ -84,6 +87,11 @@ snippet ife
 snippet el
 	else {
 		${0:${VISUAL}}
+	}
+# error in confition snippet
+snippet irn
+	if err := ${1: /* call */}; err != nil {
+		return err
 	}
 # error snippet
 snippet ir
@@ -124,13 +132,13 @@ snippet forr
 # function simple
 snippet fun
 	func ${1:funcName}(${2}) ${3:error} {
-		${4}
+		${4:return nil}
 	}
 	${0}
 # function on receiver
 snippet fum
 	func (${1:receiver} ${2:type}) ${3:funcName}(${4}) ${5:error} {
-		${6}
+		${6:return nil}
 	}
 	${0}
 # http handler function on reciever
@@ -193,7 +201,7 @@ snippet sr
 	string
 # struct
 snippet st
-	struct ${1:name} {
+	type ${1:name} struct {
 		${2:/* data */}
 	}
 	${0}
@@ -238,7 +246,7 @@ snippet cl
 	}
 # if key in a map
 snippet om
-	if ${1:value}, ok := ${2:map}[${3:key}]; ok == true {
+	if ${1:value}, ok := ${2:map}[${3:key}]; ok {
 		${4:/* code */}
 	}
 
