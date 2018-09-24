@@ -88,7 +88,13 @@ snippet el
 	else {
 		${0:${VISUAL}}
 	}
-# error in confition snippet
+# if err in condition return then naked return
+snippet irr
+	if err = ${1: /*call */}; err != nil {
+		return
+	}
+
+# error in condition snippet
 snippet irn
 	if err := ${1: /* call */}; err != nil {
 		return err
@@ -135,12 +141,24 @@ snippet fun
 		${4:return nil}
 	}
 	${0}
+snippet to_string
+	func (${1:receiver} ${2:type}) String() string {
+		var buffer bytes.Buffer
+		fmt.Fprint(&buffer, "${3:format}", ${0})
+		return buffer.String()
+	}
 # function on receiver
 snippet fum
-	func (${1:receiver} ${2:type}) ${3:funcName}(${4}) ${5:error} {
+	func (${1:receiver} ${2:type}) ${3:funcName}(${4:args}) ${5:error} {
 		${6:return nil}
 	}
 	${0}
+# function on receiver with named output and error
+snippet fumn
+	func (${1:receiver} ${2:type}) ${3:funcName}(${4:args}) (${5:result} ${6:type}, err error) {
+		${0}
+		return
+	}
 # http handler function on reciever
 snippet fumh
 	func (${1:receiver} ${2:type}) ${3:funcName}(${4:w} http.ResponseWriter, ${5:r} *http.Request) {
@@ -269,4 +287,10 @@ snippet ja
 snippet errwr # Error handling with errors.Wrap
 	if ${1}err != nil {
 		return errors.Wrap(err, "${2}")
+	}
+
+snippet comp
+	func (${1:receiver} ${2:type}) Compile(compiler *requests.Compiler) error {
+		${0}
+		return nil
 	}
