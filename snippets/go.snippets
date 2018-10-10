@@ -99,6 +99,11 @@ snippet irn "error in condition snippet"
 		return err
 	}
 
+snippet fatal "log fatal error"
+	if ${0}err := ${1: the call}; err != nil {
+		log.Fatal(err)
+	}
+
 snippet ir "if error not nil, return err"
 	if err != nil {
 		return err
